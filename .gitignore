@@ -1,5 +1,9 @@
 CMakeCache.txt
+CMakeScripts
 CMakeFiles
+Debug
 Makefile
 cmake_install.cmake
 install_manifest.txt
+unyt-automata-dfa.build
+unyt-automata-dfa.xcode
