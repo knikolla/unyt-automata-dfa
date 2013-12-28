@@ -6,4 +6,4 @@ Makefile
 cmake_install.cmake
 install_manifest.txt
 unyt-automata-dfa.build
-unyt-automata-dfa.xcode
+unyt-automata-dfa.xcodeproj
