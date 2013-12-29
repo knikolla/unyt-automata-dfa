@@ -12,9 +12,9 @@ class Automaton
 {
     public:
 		void addState(State&);
-		State* getState(std::string&);
-		void addTransition(char symbol, std::string&, std::string&);
-		bool decideString(std::string&);
+		State* getState(std::string);
+		void addTransition(char symbol, std::string, std::string);
+		bool decideString(std::string);
 		std::string print();
     
     private:

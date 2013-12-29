@@ -1,7 +1,7 @@
 #include "State.h"
 #include "Transition.h"
 
-State::State(std::string& n) : name(n)
+State::State(std::string n) : name(n)
 {
 	for (int i = 0; i < MAX_T; i++)
 	{
@@ -9,14 +9,14 @@ State::State(std::string& n) : name(n)
 	}
 }
 
-std::string& State::getName()
+std::string State::getName()
 {
     return this->name;
 }
 
 void State::addTransition(Transition* t)
 {
-	this->transitions[t->getSymbol()]->push_back(t);
+	this->transitions[(int) t->getSymbol()]->push_back(t);
 }
 
 std::vector<Transition*>* State::getTransitions(char symbol)

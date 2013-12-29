@@ -7,10 +7,10 @@
 int main()
 {
 	Automaton Automaton;
-
+    
     State a = State(std::string("A"));
 	State b = State(std::string("B"));
-	Automaton.addState(a);
+    Automaton.addState(a);
 	Automaton.addState(b);
 
 	Automaton.getState(std::string("B"))->setAccepting(true);
@@ -20,8 +20,11 @@ int main()
 	
 	std::cout << Automaton.print() << std::endl;
 
-	std::cout << Automaton.decideString(std::string("11")) << std::endl;
-
-	std::string exitme;
-	std::cin >> exitme;
+    bool result = Automaton.decideString(std::string("1"));
+    
+	if (result == true) {
+        std::cout << "Automaton accepted the string" << std::endl;
+    } else {
+        std::cout << "Automaton rejected the string" << std::endl;
+    }
 }

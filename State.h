@@ -11,8 +11,8 @@ class Transition;
 class State
 {
     public:
-		State(std::string&);
-		std::string& getName();
+		State(std::string);
+		std::string getName();
 		void addTransition(Transition*);
 		std::vector<Transition*>* getTransitions(char);
 		bool isAccepting();

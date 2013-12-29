@@ -15,19 +15,19 @@ void Automaton::addState(State& state)
 	states[state.getName()] = &state;
 }
 
-State* Automaton::getState(std::string& name)
+State* Automaton::getState(std::string name)
 {
 	return states[name];
 }
 
-void Automaton::addTransition(char s, std::string& o, std::string& d)
+void Automaton::addTransition(char s, std::string o, std::string d)
 {
 	State* origin = states[o];
 	State* destination = states[d];
 	origin->addTransition(new Transition(s, *origin, *destination));
 }
 
-bool Automaton::decideString(std::string& input) 
+bool Automaton::decideString(std::string input)
 {
 	currentState = startState;
 
