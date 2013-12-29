@@ -7,16 +7,17 @@ class State;
 
 class Transition
 {
+	public:
+		Transition(char, State&, State&);
+		State& getOrigin();
+		State& getDestination();
+		char getSymbol();
+		std::string print();
+
     private:
-    char symbol;
-    State* origin;
-    State* destination;
-    
-    public:
-    Transition(char symbol, State* origin, State* destination);
-    State* getOrigin();
-    State* getDestination();
-    char getSymbol();
+		char symbol;
+		State& origin;
+		State& destination;
 };
 
 #endif

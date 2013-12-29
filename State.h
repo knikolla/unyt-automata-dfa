@@ -4,22 +4,25 @@
 #include <string>
 #include <vector>
 
+#define MAX_T 256
+
 class Transition;
 
 class State
 {
-    private:    
-    std::string* name;
-    std::vector<Transition*>* transitions[100];
-    bool accepting;
-    
     public:
-    State(std::string* name);
-    std::string* getName();
-    void addTransition(Transition* transition);
-    std::vector<Transition*>* getTransitions(char symbol);
-    bool isAccepting();
-    void setAccepting(bool accepting);
+		State(std::string&);
+		std::string& getName();
+		void addTransition(Transition*);
+		std::vector<Transition*>* getTransitions(char);
+		bool isAccepting();
+		void setAccepting(bool);
+		std::string print();
+
+	private:
+		std::string name;
+		std::vector<Transition*>* transitions[MAX_T];
+		bool accepting;
 };
 
 

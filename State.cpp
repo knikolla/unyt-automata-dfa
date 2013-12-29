@@ -1,28 +1,22 @@
-//
-//  State.cpp
-//  unyt-automata-dfa
-//
-//  Created by Kristi Nikolla on 12/28/13.
-//
-//
-
 #include "State.h"
 #include "Transition.h"
 
-State::State(std::string* name)
+State::State(std::string& n) : name(n)
 {
-    this->name = name;
+	for (int i = 0; i < MAX_T; i++)
+	{
+		this->transitions[i] = new std::vector<Transition*>();
+	}
 }
 
-std::string* State::getName()
+std::string& State::getName()
 {
     return this->name;
 }
 
-void State::addTransition(Transition* transition)
+void State::addTransition(Transition* t)
 {
-    int position = (int) transition->getSymbol();
-    this->transitions[position]->push_back(transition);
+	this->transitions[t->getSymbol()]->push_back(t);
 }
 
 std::vector<Transition*>* State::getTransitions(char symbol)
@@ -36,7 +30,22 @@ bool State::isAccepting()
     return this->accepting;
 }
 
-void State::setAccepting(bool accepting)
+void State::setAccepting(bool a)
 {
-    this->accepting = accepting;
+    this->accepting = a;
+}
+
+std::string State::print()
+{
+	std::string result = std::string("STATE - Name: " + this->getName() 
+		+ "\n" + "Transitions:" + "\n");
+	for (auto a : this->transitions)
+	{
+		for (auto t : *a)
+		{
+			result.append(t->print());
+		}
+	}
+	result.append("\n");
+	return result;
 }

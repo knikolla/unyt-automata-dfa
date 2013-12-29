@@ -1,18 +1,10 @@
-//
-//  Transition.cpp
-//  unyt-automata-dfa
-//
-//  Created by Kristi Nikolla on 12/28/13.
-//
-//
-
 #include "Transition.h"
 
-Transition::Transition(char symbol, State* origin, State* destination)
+#include "State.h"
+
+Transition::Transition(char symbol, State& o, State& d) : origin(o), destination(d)
 {
     this->symbol = symbol;
-    this->origin = origin;
-    this->destination = destination;
 }
 
 char Transition::getSymbol()
@@ -20,12 +12,19 @@ char Transition::getSymbol()
     return this->symbol;
 }
 
-State* Transition::getOrigin()
+State& Transition::getOrigin()
 {
     return this->origin;
 }
 
-State* Transition::getDestination()
+State& Transition::getDestination()
 {
     return this->destination;
+}
+
+std::string Transition::print()
+{
+	return std::string("Origin: " + this->origin.getName() 
+		+ ", Symbol: " + this->destination.getName() 
+		+ ", Destination: " + this->symbol + "\n");
 }
