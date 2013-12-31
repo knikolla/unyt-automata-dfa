@@ -25,6 +25,6 @@ State& Transition::getDestination()
 std::string Transition::print()
 {
 	return std::string("Origin: " + this->origin.getName() 
-		+ ", Symbol: " + this->destination.getName() 
-		+ ", Destination: " + this->symbol + "\n");
+		+ ", Destination: " + this->destination.getName()
+		+ ", Symbol: " + this->symbol + "\n");
 }

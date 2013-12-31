@@ -25,6 +25,11 @@ const std::map<std::string, State*>& Automaton::getStates()
     return states;
 }
 
+void Automaton::setStartState(State* start)
+{
+    this->startState = start;
+}
+
 void Automaton::addTransition(char s, std::string o, std::string d)
 {
 	State* origin = states[o];
@@ -42,10 +47,14 @@ bool Automaton::decideString(std::string input)
 		currentState = &t->getDestination();
 	}
 
-	if (currentState->isAccepting() == true) {
+	if (currentState->isAccepting() == true)
+    {
 		return true;
 	}
-	else return false;
+	else
+    {
+        return false;
+    }
 }
 
 std::string Automaton::print()

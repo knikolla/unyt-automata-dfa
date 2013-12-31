@@ -3,28 +3,36 @@
 
 #include "state.h"
 #include "automaton.h"
+#include "converter.h"
 
 int main()
 {
-	Automaton Automaton;
+	Automaton automaton;
     
-    State a = State(std::string("A"));
-	State b = State(std::string("B"));
-    Automaton.addState(a);
-	Automaton.addState(b);
+    State a = State(std::string("1"));
+	State b = State(std::string("2"));
+    automaton.addState(a);
+	automaton.addState(b);
 
-	Automaton.getState(std::string("B"))->setAccepting(true);
-
-	Automaton.addTransition('1', std::string("A"), std::string("B"));
-	Automaton.addTransition('1', std::string("B"), std::string("A"));
+    automaton.getState(std::string("1"))->setAccepting(false);
+	automaton.getState(std::string("2"))->setAccepting(true);
+    
+	automaton.addTransition('a', std::string("1"), std::string("2"));
+	automaton.addTransition('a', std::string("2"), std::string("1"));
+    
+    Converter c(automaton);
+    Automaton sresult = *c.convert();
 	
-	std::cout << Automaton.print() << std::endl;
+	std::cout << sresult.print() << std::endl;
 
-    bool result = Automaton.decideString(std::string("1"));
+    bool result = sresult.decideString(std::string("aa"));
     
-	if (result == true) {
+	if (result == true)
+    {
         std::cout << "Automaton accepted the string" << std::endl;
-    } else {
+    }
+    else
+    {
         std::cout << "Automaton rejected the string" << std::endl;
     }
 }
