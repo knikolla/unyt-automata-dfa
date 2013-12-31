@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
 
-#include "State.h"
-#include "Automaton.h"
+#include "state.h"
+#include "automaton.h"
 
 int main()
 {

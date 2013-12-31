@@ -1,6 +1,6 @@
-#include "Transition.h"
+#include "transition.h"
 
-#include "State.h"
+#include "state.h"
 
 Transition::Transition(char symbol, State& o, State& d) : origin(o), destination(d)
 {

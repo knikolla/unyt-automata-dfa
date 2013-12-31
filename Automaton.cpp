@@ -2,8 +2,8 @@
 
 #include <string>
 
-#include "State.h"
-#include "Transition.h"
+#include "state.h"
+#include "transition.h"
 
 void Automaton::addState(State& state)
 {
@@ -18,6 +18,11 @@ void Automaton::addState(State& state)
 State* Automaton::getState(std::string name)
 {
 	return states[name];
+}
+
+const std::map<std::string, State*>& Automaton::getStates()
+{
+    return states;
 }
 
 void Automaton::addTransition(char s, std::string o, std::string d)

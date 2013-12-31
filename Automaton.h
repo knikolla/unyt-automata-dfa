@@ -13,6 +13,7 @@ class Automaton
     public:
 		void addState(State&);
 		State* getState(std::string);
+        const std::map<std::string, State*>& getStates();
 		void addTransition(char symbol, std::string, std::string);
 		bool decideString(std::string);
 		std::string print();

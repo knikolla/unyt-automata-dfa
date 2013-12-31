@@ -1,5 +1,5 @@
-#include "State.h"
-#include "Transition.h"
+#include "state.h"
+#include "transition.h"
 
 State::State(std::string n) : name(n)
 {
