@@ -5,6 +5,16 @@
 #include "state.h"
 #include "transition.h"
 
+void Automaton::addSymbol(char s)
+{
+    alphabet.push_back(s);
+}
+
+const std::vector<char>& Automaton::getAlphabet()
+{
+    return alphabet;
+}
+
 void Automaton::addState(State& state)
 {
 	if (states.empty() == true)

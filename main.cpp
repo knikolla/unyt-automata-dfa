@@ -9,6 +9,7 @@ int main()
 {
 	Automaton automaton;
     
+    automaton.addSymbol('a');
     State a = State(std::string("1"));
 	State b = State(std::string("2"));
     automaton.addState(a);
@@ -18,6 +19,7 @@ int main()
 	automaton.getState(std::string("2"))->setAccepting(true);
     
 	automaton.addTransition('a', std::string("1"), std::string("2"));
+    automaton.addTransition('a', std::string("1"), std::string("1"));
 	automaton.addTransition('a', std::string("2"), std::string("1"));
     
     Converter c(automaton);

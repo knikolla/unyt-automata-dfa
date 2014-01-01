@@ -1,6 +1,9 @@
 #include "converter.h"
 
+#include <vector>
+
 #include "transition.h"
+#include "state.h"
 
 Converter::Converter(Automaton& o) : original(o)
 {
@@ -59,7 +62,6 @@ void Converter::populateStates()
 
 void Converter::populateTransitions()
 {
-    char alphabet[] = { 'a' };
     for (auto state : this->originalStates)
     {
         std::vector<State*> origins;
@@ -74,7 +76,7 @@ void Converter::populateTransitions()
             }
         }
         
-        for (char symbol : alphabet)
+        for (char symbol : original.getAlphabet())
         {
             std::bitset<32> bitdest(0);
             for (auto t : *state.second.first->getTransitions(symbol))
@@ -89,7 +91,23 @@ void Converter::populateTransitions()
             //add to all states that contain the origin
             for (State* state : origins)
             {
-                state->addTransition(new Transition(symbol, *state, *destination));
+                //  if there isn't any transition assigned for current symbol
+                // simply create it
+                auto transitions_at_origin = state->getTransitions(symbol);
+                if (transitions_at_origin->empty() == true)
+                {
+                    state->addTransition(new Transition(symbol, *state, *destination));
+                }
+                else
+                {
+                    // if there is we must "merge" the destination of the old transition
+                    // with the new
+                    Transition* old_transition = transitions_at_origin->front();
+                    std::bitset<32> old_bitdest(old_transition->getDestination().getName());
+                    std::bitset<32> new_bitdest = old_bitdest | bitdest;
+                    State* new_state_dest = this->newStates[new_bitdest.to_ulong()];
+                    transitions_at_origin->front() = new Transition(symbol, *state, *new_state_dest);
+                }
             }
             
         }
