@@ -1,11 +1,3 @@
-//
-//  utilities.cpp
-//  unyt-automata-dfa
-//
-//  Created by Kristi Nikolla on 1/12/14.
-//
-//
-
 #include "utilities.h"
 
 #include <vector>

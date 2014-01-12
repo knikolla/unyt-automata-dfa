@@ -8,5 +8,7 @@ add_executable(dfa main.cpp
 	automaton.h
 	automaton.cpp
 	converter.cpp
-	converter.h)
+	converter.h
+	utilities.h
+	utilities.cpp)
 install(TARGETS dfa DESTINATION bin)
