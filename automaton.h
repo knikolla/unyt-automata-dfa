@@ -11,6 +11,8 @@ class Transition;
 class Automaton
 {
 public:
+    Automaton();
+    Automaton(std::string);
     void addSymbol(char);
     const std::vector<char>& getAlphabet();
     void addState(State&);

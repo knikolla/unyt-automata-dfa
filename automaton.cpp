@@ -1,9 +1,66 @@
-#include "Automaton.h"
+#include "automaton.h"
 
 #include <string>
+#include <fstream>
 
 #include "state.h"
 #include "transition.h"
+#include "utilities.h"
+
+Automaton::Automaton()
+{
+    
+}
+
+Automaton::Automaton(std::string text_location)
+{
+    std::ifstream file(text_location);
+    if (file.is_open())
+    {
+        std::string line;
+        std::string delimiter = " ";
+        
+        // first line is list of states
+        getline(file,line);
+        std::vector<std::string> state_vector = utilities::split(line, delimiter);
+        for (std::string s_name : state_vector)
+        {
+            addState(*new State(s_name));
+        }
+        
+        // second line is alphabet
+        getline(file,line);
+        for (char symbol : line)
+        {
+            if (symbol != ' ') addSymbol(symbol);
+        }
+        
+        // third line is list of accepting states
+        getline(file, line);
+        state_vector = utilities::split(line, delimiter);
+        for (std::string accepting_name : state_vector)
+        {
+            getState(accepting_name)->setAccepting(true);
+        }
+        
+        // fourth line and forward, list of transitions
+        std::vector<std::string> transition_vector;
+        while (getline(file, line))
+        {
+            transition_vector = utilities::split(line, " ");
+            
+            char symbol = transition_vector[1][0];
+            for (int i = 2; i < transition_vector.size(); i++)
+            {
+                addTransition(symbol, transition_vector.front(), transition_vector[i]);
+            }
+        }
+    }
+    else{
+        std::cout << "Unable to open file" << std::endl;
+        std::abort();
+    }
+}
 
 void Automaton::addSymbol(char s)
 {
@@ -53,10 +110,16 @@ bool Automaton::decideString(std::string input)
 
 	for (int i = 0; i < input.size(); i++)
 	{
-		auto t = currentState->getTransitions(input.at(i))->front();
+		Transition* t = currentState->getTransitions(input.at(i))->front();
 		currentState = &t->getDestination();
+        
+        if (currentState == NULL)
+        {
+            std::cout << "Why am i null??";
+            return false;
+        }
 	}
-
+    
 	if (currentState->isAccepting() == true)
     {
 		return true;
