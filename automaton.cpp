@@ -112,12 +112,6 @@ bool Automaton::decideString(std::string input)
 	{
 		Transition* t = currentState->getTransitions(input.at(i))->front();
 		currentState = &t->getDestination();
-        
-        if (currentState == NULL)
-        {
-            std::cout << "Why am i null??";
-            return false;
-        }
 	}
     
 	if (currentState->isAccepting() == true)

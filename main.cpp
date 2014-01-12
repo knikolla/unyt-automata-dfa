@@ -7,34 +7,38 @@
 
 int main()
 {
-	Automaton automaton("../../nfa.txt");
-//    
-//    automaton.addSymbol('a');
-//    State a = State(std::string("1"));
-//	State b = State(std::string("2"));
-//    automaton.addState(a);
-//	automaton.addState(b);
-//
-//    automaton.getState(std::string("1"))->setAccepting(false);
-//	automaton.getState(std::string("2"))->setAccepting(true);
-//    
-//	automaton.addTransition('a', std::string("1"), std::string("2"));
-//    automaton.addTransition('e', std::string("2"), std::string("1"));
-	//automaton.addTransition('a', std::string("2"), std::string("1"));
+    std::string file;
+    std::cout << "Enter input file:";
+    std::cin >> file;
     
-    Converter c(automaton);
-    Automaton sresult = *c.convert();
+	Automaton nfa(file);
+    std::cout << "Loaded NFA" << std::endl << "-------------------------" << std::endl;
+    std::cout << nfa.print() << std::endl;
+    
+    Converter converter(nfa);
+    Automaton converted_dfa = *converter.convert();
 	
-	std::cout << sresult.print() << std::endl;
-
-    bool result = sresult.decideString(std::string("aa"));
+    std::cout << std::endl << "Converted DFA" << std::endl << "-------------------------";
+	std::cout << converted_dfa.print() << std::endl;
     
-	if (result == true)
+    std::string input;
+    std::cout << "Control-C to exit" << std::endl;
+    
+    while (true)
     {
-        std::cout << "Automaton accepted the string" << std::endl;
+        std::cout << std::endl << "Please enter input string:";
+        std::cin >> input;
+        bool result = converted_dfa.decideString(input);
+        
+        if (result == true)
+        {
+            std::cout << "Automaton accepted the string" << std::endl;
+        }
+        else
+        {
+            std::cout << "Automaton rejected the string" << std::endl;
+        }
     }
-    else
-    {
-        std::cout << "Automaton rejected the string" << std::endl;
-    }
+    
+	
 }
